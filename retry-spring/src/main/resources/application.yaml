@@ -1,0 +1,6 @@
+server:
+  # the start port
+  port: 18080
+  tomcat:
+    max-threads: 200
+    uri-encoding: utf-8
