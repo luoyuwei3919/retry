@@ -20,6 +20,7 @@
         <module>retry-aop</module>
         <module>retry-spring</module>
         <module>retry-guava</module>
+        <module>retry-command-pattern</module>
     </modules>
 
 

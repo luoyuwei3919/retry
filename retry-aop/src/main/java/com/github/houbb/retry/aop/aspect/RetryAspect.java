@@ -79,9 +79,4 @@ public class RetryAspect {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(RuntimeException.class.isAssignableFrom(AopRuntimeExption.class));
-        System.out.println(AopRuntimeExption.class.isAssignableFrom(RuntimeException.class));
-    }
-
 }

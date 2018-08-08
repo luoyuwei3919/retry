@@ -13,6 +13,9 @@ import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -30,14 +33,23 @@ import java.util.concurrent.TimeUnit;
  */
 public class ExponentialBackoff {
 
+    private static final Logger LOGGER = LogManager.getLogger(HelloDemo.class);
+
     public static void main(String[] args) {
-        Callable<Boolean> callable =new MyCallable();
+        Callable<Boolean> callable = new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                // do something useful here
+                LOGGER.info("call...");
+                throw new RuntimeException();
+            }
+        };
 
         Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
                 .retryIfResult(Predicates.isNull())
                 .retryIfExceptionOfType(IOException.class)
                 .retryIfRuntimeException()
-                .withWaitStrategy(WaitStrategies.exponentialWait(2, 5, TimeUnit.MINUTES))
+                .withWaitStrategy(WaitStrategies.fixedWait(3, TimeUnit.SECONDS))
                 .withStopStrategy(StopStrategies.stopAfterAttempt(3))
                 .build();
         try {
@@ -45,7 +57,6 @@ public class ExponentialBackoff {
         } catch (RetryException | ExecutionException e) {
             e.printStackTrace();
         }
-
     }
 
 }

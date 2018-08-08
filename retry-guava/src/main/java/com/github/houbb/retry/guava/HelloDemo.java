@@ -31,8 +31,17 @@ import java.util.concurrent.ExecutionException;
  */
 public class HelloDemo {
 
+    private static final Logger LOGGER = LogManager.getLogger(HelloDemo.class);
+
     public static void main(String[] args) {
-        Callable<Boolean> callable =new MyCallable();
+        Callable<Boolean> callable = new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                // do something useful here
+                LOGGER.info("call...");
+                throw new RuntimeException();
+            }
+        };
 
         Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
                 .retryIfResult(Predicates.isNull())
