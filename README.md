@@ -40,6 +40,6 @@ Retryer具体重试处理又交给真正的IRtry接口的实现类OdpsRetry完�
 # 参考资料
 
 
-[Retry重试机制](https://blog.csdn.net/paul_wei2008/article/details/53871442)
+[Retry重试机制汇总](https://houbb.github.io/2018/08/08/retry)
 
 
